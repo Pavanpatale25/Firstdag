@@ -3,7 +3,7 @@ INSERT INTO analytics.customer_summary (customer_id,customer_name,total_orders,t
 )
 SELECT c.customer_id,c.customer_name,
     COUNT(DISTINCT o.order_id),
-    SUM(oi.quantity * oi.unit_price),
+    COALESCE(SUM(oi.quantity * oi.unit_price), 0),
     MAX(o.order_date),
     CURRENT_TIMESTAMP
 FROM source.customers AS c
